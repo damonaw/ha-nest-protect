@@ -50,6 +50,9 @@ class NestEntity(Entity):
         if self.bucket.object_key.startswith("kryptonite."):
             return f"Nest Temperature Sensor ({name})"
 
+        if self.bucket.object_key.startswith("yale."):
+            return f"Nest Lock ({name})"
+            
         return None
 
     def generate_device_info(self) -> DeviceInfo | None:
@@ -73,6 +76,21 @@ class NestEntity(Entity):
                 + self.bucket.value["structure_id"],  # TODO change url based on device
             )
 
+        if self.bucket.object_key.startswith("yale."):
+            identifier = (
+                self.bucket.value.get("serial_number") or self.bucket.object_key
+            )
+
+            return DeviceInfo(
+                identifiers={(DOMAIN, identifier)},
+                name=self._attr_name,
+                manufacturer="Google",
+                model=self.bucket.value.get("model"),
+                hw_version="Wired"
+                suggested_area=self.area,
+            )
+
+        
         if self.bucket.object_key.startswith("kryptonite."):
             identifier = (
                 self.bucket.value.get("serial_number") or self.bucket.object_key
