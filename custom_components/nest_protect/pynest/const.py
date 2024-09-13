@@ -40,6 +40,8 @@ BUCKET_TYPES = [
     "topaz",
     # Areas
     "where",
+    # Lock
+    "yale",
 ]
 
 KNOWN_BUCKET_TYPES = [
@@ -53,6 +55,7 @@ KNOWN_BUCKET_TYPES = [
     "quartz",
     "track",
     "where",
+    "yale",
 ]
 
 KNOWN_BUCKET_VERSION = []
