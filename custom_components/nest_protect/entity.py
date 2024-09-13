@@ -86,7 +86,7 @@ class NestEntity(Entity):
                 name=self._attr_name,
                 manufacturer="Google",
                 model=self.bucket.value.get("model"),
-                hw_version="Wired"
+                hw_version="Battery"
                 suggested_area=self.area,
             )
 
