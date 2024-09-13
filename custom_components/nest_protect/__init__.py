@@ -104,7 +104,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
         # Temperature Sensors
         elif bucket.type == BucketType.KRYPTONITE:
             device_buckets.append(bucket)
-
+        # Lock
+        elif bucket.type == BucketType.YALE:
+            device_buckets.append(bucket)
+            
         # Areas
         if bucket.type == BucketType.WHERE and isinstance(
             bucket.value, WhereBucketValue
@@ -199,6 +202,14 @@ async def _async_subscribe_for_data(
 
                 async_dispatcher_send(hass, key, kryptonite)
 
+
+            # Temperature Sensors
+            if key.startswith("yale."):
+                yale = Bucket(**bucket)
+                entry_data.devices[key] = yale
+
+                async_dispatcher_send(hass, key, yale)
+                
         # Update buckets with new data, to only receive new updates
         buckets = {d["object_key"]: d for d in result["objects"]}
 
