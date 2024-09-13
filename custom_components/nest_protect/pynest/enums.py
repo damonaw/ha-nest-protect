@@ -17,6 +17,7 @@ class BucketType(StrEnum):
     DEVICE_ALERT_DIALOG = "device_alert_dialog"
     GEOFENCE_INFO = "geofence_info"
     KRYPTONITE = "kryptonite"  # Temperature Sensors
+    YALE = "yale" # lock
     LINK = "link"
     MESSAGE = "message"
     MESSAGE_CENTER = "message_center"
