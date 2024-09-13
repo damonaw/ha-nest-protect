@@ -18,6 +18,8 @@ class NestLimits:
     smoke_detectors_per_structure: int
     smoke_detectors: int
     thermostats: int
+    locks_per_structure: int
+    locks: int
 
 
 @dataclass
@@ -332,7 +334,8 @@ class Limits:
     structures: int
     thermostats: int
     thermostats_per_structure: int
-
+    locks: int
+    locks_per_structure: int
 
 @dataclass
 class FirstDataAPIResponse:
