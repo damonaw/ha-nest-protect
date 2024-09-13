@@ -93,6 +93,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
             kryptonite = Bucket(**bucket)
             devices.append(kryptonite)
 
+        # Locks
+        if key.startswith("yale."):
+            yale = Bucket(**bucket)
+            devices.append(yale)
+            
     devices: dict[str, Bucket] = {b.object_key: b for b in devices}
 
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = HomeAssistantNestProtectData(
@@ -175,6 +180,13 @@ async def _async_subscribe_for_data(hass: HomeAssistant, entry: ConfigEntry, dat
 
                 async_dispatcher_send(hass, key, kryptonite)
 
+            # Temperature Sensors
+            if key.startswith("yale."):
+                yale = Bucket(**bucket)
+                entry_data.devices[key] = yale
+
+                async_dispatcher_send(hass, key, yale)
+                
         # Update buckets with new data, to only receive new updates
         buckets = {d["object_key"]: d for d in result["objects"]}
         objects = [
