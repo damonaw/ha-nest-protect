@@ -50,6 +50,9 @@ class NestEntity(Entity):
         if self.bucket.object_key.startswith("kryptonite."):
             return f"Nest Temperature Sensor ({name})"
 
+        if self.bucket.object_key.startswith("yale."):
+            return f"Nest Lock ({name})"
+            
         return None
 
     def generate_device_info(self) -> DeviceInfo | None:
@@ -86,6 +89,20 @@ class NestEntity(Entity):
                 suggested_area=self.area,
             )
 
+        if self.bucket.object_key.startswith("yale."):
+            identifier = (
+                self.bucket.value.get("serial_number") or self.bucket.object_key
+            )
+
+            return DeviceInfo(
+                identifiers={(DOMAIN, identifier)},
+                name=self._attr_name,
+                manufacturer="Yale",
+                hw_version="Battery",
+                model=self.bucket.value.get("model"),
+                suggested_area=self.area,
+            )
+            
         return None
 
     async def async_added_to_hass(self) -> None:
