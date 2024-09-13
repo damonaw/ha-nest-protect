@@ -34,6 +34,7 @@ NEST_REQUEST = {
         BucketType.TOPAZ,
         BucketType.WHERE,
         BucketType.USER,
+        BucketType.YALE,
     ],
     "known_bucket_versions": [],
 }
@@ -43,6 +44,7 @@ FULL_NEST_REQUEST = {
         BucketType.BUCKETS,
         BucketType.METADATA,
         BucketType.KRYPTONITE,
+        BucketType.YALE,
         BucketType.STRUCTURE,
         BucketType.TOPAZ,
         BucketType.WHERE,
